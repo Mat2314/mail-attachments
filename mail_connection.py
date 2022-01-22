@@ -71,7 +71,6 @@ class EmailConnector(object):
         datescope = self.convert_string_to_date_scope(datestring)
 
         # Connect to the email account
-        # mail.intersim.pl
         # imap.gmail.com
         with Imbox(self.mail_server,
                    username=self.email,
