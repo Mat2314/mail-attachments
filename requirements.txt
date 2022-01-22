@@ -1,0 +1,13 @@
+imbox
+tk
+Pillow
+pytesseract
+pdf2image
+tkcalendar
+python-dateutil
+pytest
+pytest-cov
+wdb
+wdb.server
+pytest-watch
+pdfkit
