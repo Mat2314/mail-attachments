@@ -11,3 +11,4 @@ wdb
 wdb.server
 pytest-watch
 pdfkit
+python-dotenv

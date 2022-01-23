@@ -4,16 +4,19 @@ import datetime
 import calendar
 from collections import namedtuple
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 DateScope = namedtuple("DateScope", "begin, end")
-
 
 class EmailConnector(object):
     DOWNLOAD_CATALOGUE = "./attachments"
     ERROR_LOGS_PATH = "./error_logs.txt"
 
-    def __init__(self, email: str, password: str, mail_server: str = "imap.gmail.com"):
-        self.mail_server = mail_server
+    def __init__(self, email: str, password: str, mail_server: str = None):
+        self.mail_server = os.getenv("MAIL_SERVER") if os.getenv("MAIL_SERVER") else "imap.gmail.com"
+        
         self.email = email
         self.password = password
         
