@@ -9,7 +9,7 @@ import platform
 import subprocess
 
 from mail_connection import EmailConnector
-
+from invoice_detector import InvoiceDetection
 
 now = datetime.date.today()
 
@@ -115,9 +115,12 @@ class SystemWindow(tk.Tk):
             # check the thread every 100ms
             self.after(100, lambda: self.monitor(thread))
         else:
-            self.pb.stop()
-            self.enable_inputs()
+            # Detect invoices in among collected files
+            invoice_detector = InvoiceDetection()
+            invoice_detector.multiprocessing_detect_data_from_pdf("faktura")
+            
             # self.popup_window("My work is done here! Check the attachments/ catalogue :)")
+            self.pb.stop()
+            # self.enable_inputs()
             self.open_file("./attachments/")
             self.destroy()
-

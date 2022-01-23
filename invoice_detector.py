@@ -101,7 +101,7 @@ class InvoiceDetection(object):
             error_file.write(message)
             error_file.write("\n\n")
     
-    def detect_data_from_pdf(self, browsed_string: str, path_to_pdf: str, save_files_to: str = "./attachments/detected"):
+    def detect_data_from_pdf(self, browsed_string: str, path_to_pdf: str, save_files_to: str = "attachments/detected"):
         """Method is looking for a browsed_string in given pdf file. 
         When it is found, program moves the PDF file to given catalogue in path save_files_to.
 
@@ -110,6 +110,8 @@ class InvoiceDetection(object):
             path_to_pdf (str): path to PDF to be analyzed
             save_files_to (str): path to directory where to move the PDF if the browsed_string was detected
         """
+        # import wdb; wdb.set_trace();
+        # save_files_to = os.path.dirname(os.path.realpath(__file__)) + f"/{save_files_to}"
         self._create_directory_if_not_exists(save_files_to)
         
         try:
@@ -126,12 +128,14 @@ class InvoiceDetection(object):
         if browsed_string.lower() in extracted_text.lower():
             shutil.move(path_to_pdf, save_files_to)
         
-    def multiprocessing_detect_data_from_pdf(self, browsed_string: str, save_files_to: str = "./attachments/detected", catalogue_with_pdfs: str = "./attachments/"):
+    def multiprocessing_detect_data_from_pdf(self, browsed_string: str, save_files_to: str = "attachments/detected", catalogue_with_pdfs: str = "attachments/"):
         """Method uses multiprocessing to increase the performance of detecting data in PDF files."""
         # List arguments for each PDF file to proceed with the analysis
         listed_arguments = []
         
-        # import wdb; wdb.set_trace()
+        catalogue_with_pdfs = os.path.dirname(os.path.realpath(__file__)) + f"/{catalogue_with_pdfs}"
+        save_files_to = os.path.dirname(os.path.realpath(__file__)) + f"/{save_files_to}"
+        self._create_directory_if_not_exists(save_files_to)
         
         # Go through all the files and create list of tuples as arguments for each PDF file
         for filename in os.listdir(catalogue_with_pdfs):
