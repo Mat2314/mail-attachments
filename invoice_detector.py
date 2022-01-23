@@ -167,12 +167,12 @@ def check_performance():
     
     invoice_detector = InvoiceDetection()
     for attachment in attachments:
-        invoice_detector.detect_data_from_pdf("faktura", f"{catalogue}{attachment}")
+        invoice_detector.detect_data_from_pdf("invoice", f"{catalogue}{attachment}")
 
 @measure_time
 def check_multiprocessing_performance():
     invoice_detector = InvoiceDetection()
-    invoice_detector.multiprocessing_detect_data_from_pdf("faktura")
+    invoice_detector.multiprocessing_detect_data_from_pdf("invoice")
 
 if __name__ == '__main__':
     # invoice_detector = InvoiceDetection()

@@ -15,7 +15,8 @@ Window module provides a simple User Interface which enables user to insert the 
 
 ## Usage
 First configure the server type and put it in the .env file (see .env.example). 
-You can also define REQUIRED_FILE_EXTENSION which stands for filtering retrieved files by their extension type. (PDF by default)
+You can also define REQUIRED_FILE_EXTENSION which stands for filtering retrieved files by their extension type. (PDF by default).
+Moreover, to specify which word are you looking for in a PDF file, adjust BROWSED_DATA env variable.
 
 Then you're ready to go, open your terminal and run the following:
 ```

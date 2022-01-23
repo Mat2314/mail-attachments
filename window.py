@@ -10,6 +10,9 @@ import subprocess
 
 from mail_connection import EmailConnector
 from invoice_detector import InvoiceDetection
+from dotenv import load_dotenv
+
+load_dotenv()
 
 now = datetime.date.today()
 
@@ -17,6 +20,9 @@ class SystemWindow(tk.Tk):
     OPTIONS = [(now - relativedelta(months=i)).strftime("%m-%Y") for i in range(12) ]
     
     def __init__(self, window_title: str):
+        if not os.getenv("BROWSED_DATA"):
+            raise ValueError("Missing BROWSED_DATA environmental variable!")
+        
         """Initialize window and render all the elements"""
         super().__init__(className=window_title)
         
@@ -117,7 +123,7 @@ class SystemWindow(tk.Tk):
         else:
             # Detect invoices in among collected files
             invoice_detector = InvoiceDetection()
-            invoice_detector.multiprocessing_detect_data_from_pdf("faktura")
+            invoice_detector.multiprocessing_detect_data_from_pdf(os.getenv("BROWSED_DATA"))
             
             # self.popup_window("My work is done here! Check the attachments/ catalogue :)")
             self.pb.stop()
