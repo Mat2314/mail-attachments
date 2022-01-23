@@ -1,4 +1,4 @@
-""" Module reads PDF file and detects the word 'faktura' in the given file."""
+""" Module reads PDF file and detects the given word in the given file."""
 
 # Import libraries
 from PIL import Image
@@ -10,13 +10,16 @@ import shutil
 import time
 import multiprocessing
 import hashlib
+from dotenv import load_dotenv
 
+load_dotenv()
 
 class InvoiceDetection(object):
     ERROR_LOGS_PATH = "./error_logs.txt"
     
     def __init__(self):
         self.image_counter = 0
+        self.REQUIRED_FILE_EXTENSION = os.getenv("REQUIRED_FILE_EXTENSION", ".pdf")
     
     def convert_pdf_to_image(self, path_to_pdf:str):
         # Store all the pages of the PDF in a variable
@@ -139,7 +142,7 @@ class InvoiceDetection(object):
         
         # Go through all the files and create list of tuples as arguments for each PDF file
         for filename in os.listdir(catalogue_with_pdfs):
-            if os.path.isfile(f"{catalogue_with_pdfs}{filename}") and filename.endswith(".pdf"):
+            if os.path.isfile(f"{catalogue_with_pdfs}{filename}") and filename.endswith(self.REQUIRED_FILE_EXTENSION):
                 listed_arguments.append(
                     (browsed_string, f"{catalogue_with_pdfs}{filename}", save_files_to)
                 )

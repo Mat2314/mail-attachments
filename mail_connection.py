@@ -15,7 +15,7 @@ class EmailConnector(object):
     ERROR_LOGS_PATH = "./error_logs.txt"
 
     def __init__(self, email: str, password: str, mail_server: str = None):
-        self.mail_server = os.getenv("MAIL_SERVER") if os.getenv("MAIL_SERVER") else "imap.gmail.com"
+        self.mail_server = os.getenv("MAIL_SERVER", "imap.gmail.com")
         
         self.email = email
         self.password = password
