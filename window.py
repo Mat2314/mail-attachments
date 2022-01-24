@@ -23,6 +23,8 @@ class SystemWindow(tk.Tk):
         if not os.getenv("BROWSED_DATA"):
             raise ValueError("Missing BROWSED_DATA environmental variable!")
         
+        self.REQUIRED_FILE_EXTENSION = os.getenv("REQUIRED_FILE_EXTENSION", ".pdf")
+        
         """Initialize window and render all the elements"""
         super().__init__(className=window_title)
         
@@ -76,12 +78,12 @@ class SystemWindow(tk.Tk):
         self.pb.start()
         
         # Declare that we'd like to retrieve only PDF files
-        desired_file_extension = ".pdf"
+        # desired_file_extension = ".pdf"
         
         # Run the email connector method retrieving messages in the separate thread 
         # To keep the window working smoothly
         email_connector = EmailConnector(email, password)
-        t1 = Thread(target=email_connector.retrieve_attachments_from_month, args=(selected_date, desired_file_extension))
+        t1 = Thread(target=email_connector.retrieve_attachments_from_month, args=(selected_date, self.REQUIRED_FILE_EXTENSION))
         t1.start()
         
         # Disable inputs and update window on thread changes
